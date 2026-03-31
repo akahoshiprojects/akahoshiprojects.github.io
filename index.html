@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Mi Galería</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Galería</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* CONTENEDOR GENERAL */
+.container {
+  display: flex;
+}
+
+/* LATERALES */
+.lateral {
+  width: 20%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+}
+
+.izq {
+  left: 0;
+  background-image: url("lado-izq.jpg");
+}
+
+.der {
+  right: 0;
+  background-image: url("lado-der.jpg");
+}
+
+/* CONTENIDO CENTRAL */
+.contenido {
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* GALERÍA */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.galeria img {
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.galeria img:hover {
+  transform: scale(1.05);
+}
+
+/* 📱 MODO CELULAR */
+@media (max-width: 768px) {
+
+  .lateral {
+    width: 40px;
+    filter: brightness(0.4);
+  }
+
+  .contenido {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+</style>
+
 </head>
-<body style="background:black; color:white; text-align:center;">
+
+<body>
+
+<!-- LATERALES -->
+<div class="lateral izq"></div>
+<div class="lateral der"></div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
   <h1>Mis Dibujos</h1>
-  <p>Bienvenido a mi página</p>
+  <p>Bienvenido a mi galería</p>
+
+  <div class="galeria">
+    <img src="dibujo1.jpg">
+    <img src="dibujo2.jpg">
+    <img src="dibujo3.jpg">
+  </div>
+</div>
+
 </body>
 </html>
