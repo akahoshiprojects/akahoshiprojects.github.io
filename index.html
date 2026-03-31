@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- TIPOGRAFÍA -->
+<!-- TIPOGRAFÍA NOVELA -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <title>Akahoshi Arts</title>
@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-/* 🕸️ FONDO */
+/* FONDO OSCURO VIOLETA */
 .fondo {
   position: fixed;
   width: 100%;
@@ -29,7 +29,7 @@ body {
     #050505;
 }
 
-/* 🔴 PARTÍCULAS */
+/* PARTÍCULAS ROJAS */
 .particulas {
   position: fixed;
   width: 100%;
@@ -69,7 +69,7 @@ body {
   font-style: italic;
 }
 
-/* TABS */
+/* BOTONES */
 .tabs {
   text-align: center;
 }
@@ -99,8 +99,10 @@ body {
   transition: 0.3s;
 }
 
+/* EFECTO GLOW */
 .galeria img:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(180, 100, 255, 0.6);
 }
 
 /* MODAL */
@@ -144,7 +146,7 @@ body {
 <!-- HEADER -->
 <div class="header">
   <h1>Akahoshi Arts</h1>
-  <p id="frase">Donde la oscuridad susurra historias olvidadas</p>
+  <p>Donde la oscuridad susurra historias olvidadas</p>
 </div>
 
 <!-- TABS -->
@@ -158,29 +160,38 @@ body {
 <!-- PAINTS -->
 <div id="paints" class="tab">
   <div class="galeria">
-    <img src="Paint1.npg" onclick="abrirModal(this, 'Nombre: Rukia Kuchiki<br>Serie: Bleach')">
+
+    <img src="paint/Paint1.png"
+    onclick="abrirModal(this, 'Nombre: Mi primer paint<br>Serie: Akahoshi')">
+
   </div>
 </div>
 
 <!-- IA -->
 <div id="ia" class="tab">
   <div class="galeria">
-    <img src="IA1.jpg" onclick="abrirModal(this, 'Tema: Gyaru')">
+
+    <img src="IA/IA1.jpg"
+    onclick="abrirModal(this, 'Tema: Creación con IA')">
+
   </div>
 </div>
 
 <!-- DRAWS -->
 <div id="draws" class="tab">
   <div class="galeria">
-    <img src="draw1.jpg" onclick="abrirModal(this, 'Nombre: Personaje X<br>Serie: Mundo Y')">
+
+    <img src="draw/Draw1.jpg"
+    onclick="abrirModal(this, 'Nombre: Boceto 1<br>Serie: Mundo base')">
+
   </div>
 </div>
 
 <!-- BOOK -->
 <div id="book" class="tab">
-  <div style="padding:20px;">
+  <div style="padding:20px; max-width:700px; margin:auto;">
     <h2>Historia</h2>
-    <p>Escribe aquí tu historia...</p>
+    <p>Aquí puedes escribir tus relatos, historias o ideas.</p>
   </div>
 </div>
 
@@ -191,7 +202,7 @@ body {
 </div>
 
 <script>
-// TABS
+// CAMBIO DE TABS
 function mostrar(tab) {
   document.querySelectorAll('.tab').forEach(el => el.style.display = 'none');
   document.getElementById(tab).style.display = 'block';
@@ -204,12 +215,12 @@ function abrirModal(img, info) {
   document.getElementById("modalImg").src = img.src;
   document.getElementById("modalInfo").innerHTML = info;
 
-  document.querySelector('.particulas').style.display = "none";
+  document.getElementById("particulas").style.display = "none";
 }
 
 function cerrarModal() {
   document.getElementById("modal").style.display = "none";
-  document.querySelector('.particulas').style.display = "block";
+  document.getElementById("particulas").style.display = "block";
 }
 
 // PARTÍCULAS
