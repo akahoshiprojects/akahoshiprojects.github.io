@@ -3,49 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- TIPOGRAFÍA -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet">
+
 <title>Akahoshi Arts</title>
 
 <style>
 body {
-  background: #0a0a0a;
-  color: white;
-  font-family: Arial;
   margin: 0;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  overflow-x: hidden;
+}
+
+/* 🕸️ FONDO */
+.fondo {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(120,0,150,0.2), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(120,0,150,0.2), transparent 40%),
+    #050505;
+}
+
+/* 🔴 PARTÍCULAS */
+.particulas {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particula {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: red;
+  border-radius: 50%;
+  animation: flotar 10s linear infinite;
+}
+
+@keyframes flotar {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(-10vh); opacity: 1; }
 }
 
 /* HEADER */
 .header {
   text-align: center;
-  padding: 30px 10px 10px;
+  padding: 30px 10px;
 }
 
 .header h1 {
-  font-size: 42px;
-  margin: 0;
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  letter-spacing: 2px;
 }
 
 .header p {
-  color: #aaa;
+  color: #b88cff;
   font-style: italic;
-}
-
-/* IDIOMA */
-.lang {
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
 /* TABS */
 .tabs {
   text-align: center;
-  margin-top: 10px;
 }
 
 .tabs button {
-  background: #1a1a1a;
-  color: white;
-  border: none;
+  background: #140014;
+  color: #d9aaff;
+  border: 1px solid #5a0066;
   padding: 10px 18px;
   margin: 5px;
   border-radius: 8px;
@@ -71,36 +103,27 @@ body {
   transform: scale(1.05);
 }
 
-/* MODAL (ZOOM) */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
-  padding: 20px;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: black;
   text-align: center;
 }
 
 .modal img {
   max-width: 90%;
-  max-height: 60%;
-  border-radius: 10px;
+  margin-top: 50px;
 }
 
 .modal .info {
   margin-top: 15px;
   color: #ccc;
-}
-
-/* BOOK */
-.book {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
 }
 
 /* OCULTAR */
@@ -112,61 +135,52 @@ body {
 
 <body>
 
-<!-- IDIOMA -->
-<div class="lang">
-  <button onclick="cambiarIdioma('es')">ES</button>
-  <button onclick="cambiarIdioma('en')">EN</button>
-</div>
+<!-- FONDO -->
+<div class="fondo"></div>
+
+<!-- PARTÍCULAS -->
+<div class="particulas" id="particulas"></div>
 
 <!-- HEADER -->
 <div class="header">
-  <h1 id="titulo">Akahoshi Arts</h1>
-  <p id="frase">Donde la imaginación toma forma en la oscuridad</p>
+  <h1>Akahoshi Arts</h1>
+  <p id="frase">Donde la oscuridad susurra historias olvidadas</p>
 </div>
 
 <!-- TABS -->
 <div class="tabs">
-  <button onclick="mostrar('paints')" id="tab_paints">Paints</button>
-  <button onclick="mostrar('ia')" id="tab_ia">IA</button>
-  <button onclick="mostrar('draws')" id="tab_draws">Draws</button>
-  <button onclick="mostrar('book')" id="tab_book">Book</button>
+  <button onclick="mostrar('paints')">Paints</button>
+  <button onclick="mostrar('ia')">IA</button>
+  <button onclick="mostrar('draws')">Draws</button>
+  <button onclick="mostrar('book')">Book</button>
 </div>
 
 <!-- PAINTS -->
 <div id="paints" class="tab">
   <div class="galeria">
-
     <img src="paint1.jpg" onclick="abrirModal(this, 'Nombre: Obra 1<br>Serie: Serie A')">
-    <img src="paint2.jpg" onclick="abrirModal(this, 'Nombre: Obra 2<br>Serie: Serie B')">
-
   </div>
 </div>
 
 <!-- IA -->
 <div id="ia" class="tab">
   <div class="galeria">
-
     <img src="ia1.jpg" onclick="abrirModal(this, 'Tema: Fantasía oscura')">
-
   </div>
 </div>
 
 <!-- DRAWS -->
 <div id="draws" class="tab">
   <div class="galeria">
-
     <img src="draw1.jpg" onclick="abrirModal(this, 'Nombre: Personaje X<br>Serie: Mundo Y')">
-
   </div>
 </div>
 
 <!-- BOOK -->
 <div id="book" class="tab">
-  <div class="book">
+  <div style="padding:20px;">
     <h2>Historia</h2>
-    <p>
-      Aquí puedes escribir tus historias, lore o ideas.
-    </p>
+    <p>Escribe aquí tu historia...</p>
   </div>
 </div>
 
@@ -177,36 +191,36 @@ body {
 </div>
 
 <script>
+// TABS
 function mostrar(tab) {
   document.querySelectorAll('.tab').forEach(el => el.style.display = 'none');
   document.getElementById(tab).style.display = 'block';
 }
-
 mostrar('paints');
 
-/* MODAL */
+// MODAL
 function abrirModal(img, info) {
   document.getElementById("modal").style.display = "block";
   document.getElementById("modalImg").src = img.src;
   document.getElementById("modalInfo").innerHTML = info;
+
+  document.querySelector('.particulas').style.display = "none";
 }
 
 function cerrarModal() {
   document.getElementById("modal").style.display = "none";
+  document.querySelector('.particulas').style.display = "block";
 }
 
-/* MULTILENGUAJE */
-function cambiarIdioma(lang) {
+// PARTÍCULAS
+const contenedor = document.getElementById("particulas");
 
-  if (lang === "es") {
-    document.getElementById("frase").innerText = "Donde la imaginación toma forma en la oscuridad";
-    document.getElementById("tab_ia").innerText = "IA";
-  }
-
-  if (lang === "en") {
-    document.getElementById("frase").innerText = "Where imagination takes form in the darkness";
-    document.getElementById("tab_ia").innerText = "AI";
-  }
+for (let i = 0; i < 50; i++) {
+  let p = document.createElement("div");
+  p.className = "particula";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (5 + Math.random() * 10) + "s";
+  contenedor.appendChild(p);
 }
 </script>
 
