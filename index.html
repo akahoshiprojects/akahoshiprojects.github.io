@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galería</title>
+<title>Akahoshi Arts</title>
 
 <style>
 body {
@@ -11,29 +11,35 @@ body {
   color: white;
   font-family: Arial;
   margin: 0;
-  text-align: center;
 }
 
-/* BOTÓN IDIOMA */
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 30px 10px 10px;
+}
+
+.header h1 {
+  font-size: 42px;
+  margin: 0;
+}
+
+.header p {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* IDIOMA */
 .lang {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-.lang button {
-  background: #222;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin: 2px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
 /* TABS */
 .tabs {
-  margin: 20px 0;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .tabs button {
@@ -42,37 +48,52 @@ body {
   border: none;
   padding: 10px 18px;
   margin: 5px;
-  cursor: pointer;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 /* GALERÍA */
 .galeria {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 15px;
   padding: 20px;
 }
 
-.card {
-  background: #111;
-  border-radius: 10px;
-  overflow: hidden;
-  padding-bottom: 10px;
-}
-
-.card img {
+.galeria img {
   width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.info {
-  padding: 10px;
-  font-size: 14px;
-  color: #ccc;
+.galeria img:hover {
+  transform: scale(1.05);
 }
 
-.tab {
+/* MODAL (ZOOM) */
+.modal {
   display: none;
+  position: fixed;
+  z-index: 1000;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  text-align: center;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 60%;
+  border-radius: 10px;
+}
+
+.modal .info {
+  margin-top: 15px;
+  color: #ccc;
 }
 
 /* BOOK */
@@ -80,21 +101,30 @@ body {
   max-width: 700px;
   margin: auto;
   padding: 20px;
-  text-align: left;
+}
+
+/* OCULTAR */
+.tab {
+  display: none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BOTÓN IDIOMA -->
+<!-- IDIOMA -->
 <div class="lang">
   <button onclick="cambiarIdioma('es')">ES</button>
   <button onclick="cambiarIdioma('en')">EN</button>
 </div>
 
-<h1 id="titulo">Mi Galería</h1>
+<!-- HEADER -->
+<div class="header">
+  <h1 id="titulo">Akahoshi Arts</h1>
+  <p id="frase">Donde la imaginación toma forma en la oscuridad</p>
+</div>
 
+<!-- TABS -->
 <div class="tabs">
   <button onclick="mostrar('paints')" id="tab_paints">Paints</button>
   <button onclick="mostrar('ia')" id="tab_ia">IA</button>
@@ -105,49 +135,45 @@ body {
 <!-- PAINTS -->
 <div id="paints" class="tab">
   <div class="galeria">
-    <div class="card">
-      <img src="paint1.jpg">
-      <div class="info">
-        <span id="paint_nombre">Nombre:</span> Obra 1<br>
-        <span id="paint_serie">Serie:</span> Serie A
-      </div>
-    </div>
+
+    <img src="paint1.jpg" onclick="abrirModal(this, 'Nombre: Obra 1<br>Serie: Serie A')">
+    <img src="paint2.jpg" onclick="abrirModal(this, 'Nombre: Obra 2<br>Serie: Serie B')">
+
   </div>
 </div>
 
 <!-- IA -->
 <div id="ia" class="tab">
   <div class="galeria">
-    <div class="card">
-      <img src="ia1.jpg">
-      <div class="info">
-        <span id="ia_tema">Tema:</span> Fantasía oscura
-      </div>
-    </div>
+
+    <img src="ia1.jpg" onclick="abrirModal(this, 'Tema: Fantasía oscura')">
+
   </div>
 </div>
 
 <!-- DRAWS -->
 <div id="draws" class="tab">
   <div class="galeria">
-    <div class="card">
-      <img src="draw1.jpg">
-      <div class="info">
-        <span id="draw_nombre">Nombre:</span> Personaje X<br>
-        <span id="draw_serie">Serie:</span> Mundo Y
-      </div>
-    </div>
+
+    <img src="draw1.jpg" onclick="abrirModal(this, 'Nombre: Personaje X<br>Serie: Mundo Y')">
+
   </div>
 </div>
 
 <!-- BOOK -->
 <div id="book" class="tab">
   <div class="book">
-    <h2 id="book_titulo">Título del escrito</h2>
-    <p id="book_texto">
-      Acá podés escribir historias, ideas o lore.
+    <h2>Historia</h2>
+    <p>
+      Aquí puedes escribir tus historias, lore o ideas.
     </p>
   </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="cerrarModal()">
+  <img id="modalImg">
+  <div id="modalInfo" class="info"></div>
 </div>
 
 <script>
@@ -158,47 +184,28 @@ function mostrar(tab) {
 
 mostrar('paints');
 
-/* 🌍 MULTILENGUAJE */
+/* MODAL */
+function abrirModal(img, info) {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("modalImg").src = img.src;
+  document.getElementById("modalInfo").innerHTML = info;
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+/* MULTILENGUAJE */
 function cambiarIdioma(lang) {
 
   if (lang === "es") {
-    document.getElementById("titulo").innerText = "Mi Galería";
-
-    document.getElementById("tab_paints").innerText = "Paints";
+    document.getElementById("frase").innerText = "Donde la imaginación toma forma en la oscuridad";
     document.getElementById("tab_ia").innerText = "IA";
-    document.getElementById("tab_draws").innerText = "Draws";
-    document.getElementById("tab_book").innerText = "Book";
-
-    document.getElementById("paint_nombre").innerText = "Nombre:";
-    document.getElementById("paint_serie").innerText = "Serie:";
-
-    document.getElementById("ia_tema").innerText = "Tema:";
-
-    document.getElementById("draw_nombre").innerText = "Nombre:";
-    document.getElementById("draw_serie").innerText = "Serie:";
-
-    document.getElementById("book_titulo").innerText = "Título del escrito";
-    document.getElementById("book_texto").innerText = "Acá podés escribir historias, ideas o lore.";
   }
 
   if (lang === "en") {
-    document.getElementById("titulo").innerText = "My Gallery";
-
-    document.getElementById("tab_paints").innerText = "Paints";
+    document.getElementById("frase").innerText = "Where imagination takes form in the darkness";
     document.getElementById("tab_ia").innerText = "AI";
-    document.getElementById("tab_draws").innerText = "Draws";
-    document.getElementById("tab_book").innerText = "Book";
-
-    document.getElementById("paint_nombre").innerText = "Name:";
-    document.getElementById("paint_serie").innerText = "Series:";
-
-    document.getElementById("ia_tema").innerText = "Theme:";
-
-    document.getElementById("draw_nombre").innerText = "Name:";
-    document.getElementById("draw_serie").innerText = "Series:";
-
-    document.getElementById("book_titulo").innerText = "Story Title";
-    document.getElementById("book_texto").innerText = "Here you can write stories, ideas or lore.";
   }
 }
 </script>
