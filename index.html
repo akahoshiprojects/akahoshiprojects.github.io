@@ -3,111 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Galería</title>
+<title>Galería</title>
 
 <style>
 body {
-  margin: 0;
   background: #0a0a0a;
   color: white;
-  font-family: Arial, sans-serif;
-}
-
-/* CONTENEDOR GENERAL */
-.container {
-  display: flex;
-}
-
-/* LATERALES */
-.lateral {
-  width: 20%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.6);
-}
-
-.izq {
-  left: 0;
-  background-image: url("lado-izq.jpg");
-}
-
-.der {
-  right: 0;
-  background-image: url("lado-der.jpg");
-}
-
-/* CONTENIDO CENTRAL */
-.contenido {
-  margin-left: 20%;
-  margin-right: 20%;
-  padding: 20px;
+  font-family: Arial;
+  margin: 0;
   text-align: center;
 }
 
-h1 {
-  font-size: 40px;
-  margin-bottom: 10px;
+/* BOTÓN IDIOMA */
+.lang {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.lang button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* TABS */
+.tabs {
+  margin: 20px 0;
+}
+
+.tabs button {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
 /* GALERÍA */
 .galeria {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
-  margin-top: 20px;
+  padding: 20px;
 }
 
-.galeria img {
-  width: 100%;
+.card {
+  background: #111;
   border-radius: 10px;
-  transition: 0.3s;
+  overflow: hidden;
+  padding-bottom: 10px;
 }
 
-.galeria img:hover {
-  transform: scale(1.05);
+.card img {
+  width: 100%;
 }
 
-/* 📱 MODO CELULAR */
-@media (max-width: 768px) {
+.info {
+  padding: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
 
-  .lateral {
-    width: 40px;
-    filter: brightness(0.4);
-  }
+.tab {
+  display: none;
+}
 
-  .contenido {
-    margin-left: 40px;
-    margin-right: 40px;
-  }
-
-  h1 {
-    font-size: 28px;
-  }
+/* BOOK */
+.book {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  text-align: left;
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- LATERALES -->
-<div class="lateral izq"></div>
-<div class="lateral der"></div>
+<!-- BOTÓN IDIOMA -->
+<div class="lang">
+  <button onclick="cambiarIdioma('es')">ES</button>
+  <button onclick="cambiarIdioma('en')">EN</button>
+</div>
 
-<!-- CONTENIDO -->
-<div class="contenido">
-  <h1>Mis Dibujos</h1>
-  <p>Bienvenido a mi galería</p>
+<h1 id="titulo">Mi Galería</h1>
 
+<div class="tabs">
+  <button onclick="mostrar('paints')" id="tab_paints">Paints</button>
+  <button onclick="mostrar('ia')" id="tab_ia">IA</button>
+  <button onclick="mostrar('draws')" id="tab_draws">Draws</button>
+  <button onclick="mostrar('book')" id="tab_book">Book</button>
+</div>
+
+<!-- PAINTS -->
+<div id="paints" class="tab">
   <div class="galeria">
-    <img src="dibujo1.jpg">
-    <img src="dibujo2.jpg">
-    <img src="dibujo3.jpg">
+    <div class="card">
+      <img src="paint1.jpg">
+      <div class="info">
+        <span id="paint_nombre">Nombre:</span> Obra 1<br>
+        <span id="paint_serie">Serie:</span> Serie A
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- IA -->
+<div id="ia" class="tab">
+  <div class="galeria">
+    <div class="card">
+      <img src="ia1.jpg">
+      <div class="info">
+        <span id="ia_tema">Tema:</span> Fantasía oscura
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAWS -->
+<div id="draws" class="tab">
+  <div class="galeria">
+    <div class="card">
+      <img src="draw1.jpg">
+      <div class="info">
+        <span id="draw_nombre">Nombre:</span> Personaje X<br>
+        <span id="draw_serie">Serie:</span> Mundo Y
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOK -->
+<div id="book" class="tab">
+  <div class="book">
+    <h2 id="book_titulo">Título del escrito</h2>
+    <p id="book_texto">
+      Acá podés escribir historias, ideas o lore.
+    </p>
+  </div>
+</div>
+
+<script>
+function mostrar(tab) {
+  document.querySelectorAll('.tab').forEach(el => el.style.display = 'none');
+  document.getElementById(tab).style.display = 'block';
+}
+
+mostrar('paints');
+
+/* 🌍 MULTILENGUAJE */
+function cambiarIdioma(lang) {
+
+  if (lang === "es") {
+    document.getElementById("titulo").innerText = "Mi Galería";
+
+    document.getElementById("tab_paints").innerText = "Paints";
+    document.getElementById("tab_ia").innerText = "IA";
+    document.getElementById("tab_draws").innerText = "Draws";
+    document.getElementById("tab_book").innerText = "Book";
+
+    document.getElementById("paint_nombre").innerText = "Nombre:";
+    document.getElementById("paint_serie").innerText = "Serie:";
+
+    document.getElementById("ia_tema").innerText = "Tema:";
+
+    document.getElementById("draw_nombre").innerText = "Nombre:";
+    document.getElementById("draw_serie").innerText = "Serie:";
+
+    document.getElementById("book_titulo").innerText = "Título del escrito";
+    document.getElementById("book_texto").innerText = "Acá podés escribir historias, ideas o lore.";
+  }
+
+  if (lang === "en") {
+    document.getElementById("titulo").innerText = "My Gallery";
+
+    document.getElementById("tab_paints").innerText = "Paints";
+    document.getElementById("tab_ia").innerText = "AI";
+    document.getElementById("tab_draws").innerText = "Draws";
+    document.getElementById("tab_book").innerText = "Book";
+
+    document.getElementById("paint_nombre").innerText = "Name:";
+    document.getElementById("paint_serie").innerText = "Series:";
+
+    document.getElementById("ia_tema").innerText = "Theme:";
+
+    document.getElementById("draw_nombre").innerText = "Name:";
+    document.getElementById("draw_serie").innerText = "Series:";
+
+    document.getElementById("book_titulo").innerText = "Story Title";
+    document.getElementById("book_texto").innerText = "Here you can write stories, ideas or lore.";
+  }
+}
+</script>
 
 </body>
 </html>
