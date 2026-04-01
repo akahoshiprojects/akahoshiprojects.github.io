@@ -16,6 +16,51 @@ body {
   font-family: 'Playfair Display', serif;
   overflow-x: hidden;
 }
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.logo {
+  max-width: 320px;
+  width: 80%;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+/* FUEGO DETRÁS (ahora en el contenedor) */
+.logo-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(255, 0, 0, 0.4),
+    rgba(150, 0, 50, 0.3),
+    rgba(120, 0, 150, 0.2),
+    transparent 70%);
+  filter: blur(20px);
+  z-index: 1;
+  animation: fuego 3s infinite alternate;
+}
+
+/* ANIMACIÓN */
+@keyframes fuego {
+  0% {
+    transform: translate(-50%, -52%) scale(1);
+    filter: blur(15px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -48%) scale(1.1);
+    filter: blur(25px);
+    opacity: 1;
+  }
+}
 
 /* FONDO OSCURO VIOLETA */
 .fondo {
@@ -145,7 +190,9 @@ body {
 
 <!-- HEADER -->
 <div class="header">
-  <h1>Akahoshi Arts</h1>
+  <div class="logo-container">
+  <img src="logo.png" class="logo">
+  </div>
   <p>Donde la oscuridad susurra historias olvidadas</p>
 </div>
 
