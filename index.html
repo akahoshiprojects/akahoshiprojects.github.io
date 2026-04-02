@@ -69,8 +69,27 @@ body {
   height: 100%;
   z-index: -2;
   background:
+    /* TELARAÑAS */
+    repeating-linear-gradient(
+      45deg,
+      rgba(150, 0, 200, 0.08) 0px,
+      rgba(150, 0, 200, 0.08) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(150, 0, 200, 0.08) 0px,
+      rgba(150, 0, 200, 0.08) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+
+    /* AURA VIOLETA */
     radial-gradient(circle at 20% 30%, rgba(120,0,150,0.2), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(120,0,150,0.2), transparent 40%),
+
+    /* BASE OSCURA */
     #050505;
 }
 
