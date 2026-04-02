@@ -20,67 +20,45 @@ body {
   position: relative;
   display: inline-block;
 }
+
 .logo {
-  width: 90%;
-  max-width: 800px;
+  max-width: 320px;
+  width: 80%;
+  margin-bottom: 10px;
   position: relative;
   z-index: 2;
 }
 
-/* FUEGO ROJO */
+/* FUEGO DETRÁS (ahora en el contenedor) */
 .logo-container::before {
   content: "";
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   width: 140%;
-  height: 120%;
+  height: 140%;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(255, 0, 0, 0.6),
-    rgba(200, 0, 0, 0.4),
+    rgba(255, 0, 0, 0.4),
+    rgba(150, 0, 50, 0.3),
+    rgba(120, 0, 150, 0.2),
     transparent 70%);
-  filter: blur(25px);
-  animation: fuegoRojo 0.8s infinite alternate;
+  filter: blur(20px);
   z-index: 1;
+  animation: fuego 3s infinite alternate;
 }
 
-/* FUEGO VIOLETA */
-.logo-container::after {
-  content: "";
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  width: 130%;
-  height: 130%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle,
-    rgba(150, 0, 255, 0.4),
-    rgba(100, 0, 150, 0.3),
-    transparent 70%);
-  filter: blur(30px);
-  animation: fuegoVioleta 1.2s infinite alternate;
-  z-index: 1;
-}
-
-/* ANIMACIONES MÁS CAÓTICAS */
-@keyframes fuegoRojo {
-  0% {
-    transform: translate(-50%, -48%) scale(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate(-50%, -55%) scale(1.15);
-    opacity: 1;
-  }
- @keyframes fuegoVioleta {
+/* ANIMACIÓN */
+@keyframes fuego {
   0% {
     transform: translate(-50%, -52%) scale(1);
-    opacity: 0.6;
+    filter: blur(15px);
+    opacity: 0.7;
   }
   100% {
-    transform: translate(-50%, -45%) scale(1.1);
-    opacity: 0.9;
+    transform: translate(-50%, -48%) scale(1.1);
+    filter: blur(25px);
+    opacity: 1;
   }
 }
 
