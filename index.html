@@ -175,7 +175,7 @@ body {
 
 /* MODAL */
 .modal {
-  display: none;
+  display: none; /* 🔥 SOLO ESTE */
   position: fixed;
   z-index: 999;
   top: 0;
@@ -184,7 +184,6 @@ body {
   height: 100%;
   background: rgba(0,0,0,0.95);
 
-  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -196,6 +195,8 @@ body {
   width: auto;
   height: auto;
   object-fit: contain;
+  display: block;
+  margin: auto;
 }
 .modal .info {
   margin-top: 15px;
@@ -323,7 +324,9 @@ mostrar('paints');
 
 // MODAL
 function abrirModal(img, info) {
-  document.getElementById("modal").style.display = "block";
+  const modal = document.getElementById("modal");
+
+  modal.style.display = "flex";          // 🔥 activa el centrado
   document.getElementById("modalImg").src = img.src;
   document.getElementById("modalInfo").innerHTML = info;
 
@@ -331,7 +334,9 @@ function abrirModal(img, info) {
 }
 
 function cerrarModal() {
-  document.getElementById("modal").style.display = "none";
+  const modal = document.getElementById("modal");
+
+  modal.style.display = "none";
   document.getElementById("particulas").style.display = "block";
 }
 
