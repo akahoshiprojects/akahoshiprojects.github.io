@@ -183,6 +183,8 @@ body {
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.95);
+  overflow: hidden; /* 🔥 CLAVE */
+  touch-action: none; /* 🔥 evita gestos en celular */
 
   align-items: center;
   justify-content: center;
@@ -195,6 +197,9 @@ body {
   object-fit: contain;
   display: block;
   margin: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none; /* 🔥 evita que se mueva */
 }
 .modal .info {
   margin-top: 15px;
@@ -322,22 +327,21 @@ mostrar('paints');
 
 // MODAL
 function abrirModal(img, info) {
-  const modal = document.getElementById("modal");
-
-  modal.style.display = "flex";          // 🔥 activa el centrado
+  document.getElementById("modal").style.display = "flex";
   document.getElementById("modalImg").src = img.src;
   document.getElementById("modalInfo").innerHTML = info;
 
   document.getElementById("particulas").style.display = "none";
+
+  document.body.style.overflow = "hidden"; 
 }
 
 function cerrarModal() {
-  const modal = document.getElementById("modal");
-
-  modal.style.display = "none";
+  document.getElementById("modal").style.display = "none";
   document.getElementById("particulas").style.display = "block";
-}
 
+  document.body.style.overflow = "auto"; 
+  }
 // PARTÍCULAS
 const contenedor = document.getElementById("particulas");
 
