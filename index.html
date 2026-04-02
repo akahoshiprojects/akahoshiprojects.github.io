@@ -83,36 +83,6 @@ body {
     opacity: 0.9;
   }
 }
-  .chispas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  height: 150%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 3;
-}
-
-.chispa {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: red;
-  animation: chispaAnim 1s linear infinite;
-}
-
-@keyframes chispaAnim {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--x), var(--y)) scale(0.5);
-    opacity: 0;
-  }
-}
 
 /* FONDO OSCURO VIOLETA */
 .fondo {
@@ -263,7 +233,6 @@ body {
 <div class="header">
   <div class="logo-container">
   <img src="logo.png" class="logo">
-  <div class="chispas" id="chispas"></div>
   </div>
   <p>Donde la oscuridad susurra historias olvidadas</p>
 </div>
@@ -388,36 +357,6 @@ for (let i = 0; i < 50; i++) {
   p.style.animationDuration = (5 + Math.random() * 10) + "s";
   contenedor.appendChild(p);
 }
-  
-const contenedorChispas = document.getElementById("chispas");
-
-function crearChispa() {
-  const chispa = document.createElement("div");
-  chispa.className = "chispa";
-
-  // Dirección aleatoria
-  const x = (Math.random() - 0.5) * 100 + "px";
-  const y = (Math.random() - 1) * 120 + "px";
-
-  chispa.style.setProperty("--x", x);
-  chispa.style.setProperty("--y", y);
-
-  // Color aleatorio rojo/violeta
-  chispa.style.background =
-    Math.random() > 0.5 ? "red" : "violet";
-
-  chispa.style.left = "50%";
-  chispa.style.top = "60%";
-
-  contenedorChispas.appendChild(chispa);
-
-  setTimeout(() => {
-    chispa.remove();
-  }, 1000);
-}
-
-// Generar chispas constantemente
-setInterval(crearChispa, 120);
 </script>
 
 </body>
