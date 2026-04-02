@@ -19,8 +19,8 @@ body {
 .logo-container {
   position: relative;
   display: inline-block;
+  overflow: hidden; /* 🔥 CLAVE */
 }
-
 .logo {
   width: 90%;
   max-width: 800px;
@@ -74,6 +74,15 @@ body {
     transform: translate(-50%, -55%) scale(1.15);
     opacity: 1;
   }
+ @keyframes fuegoVioleta {
+  0% {
+    transform: translate(-50%, -52%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -45%) scale(1.1);
+    opacity: 0.9;
+  }
 }
   .chispas {
   position: absolute;
@@ -103,17 +112,6 @@ body {
   100% {
     transform: translate(var(--x), var(--y)) scale(0.5);
     opacity: 0;
-  }
-}
-
-@keyframes fuegoVioleta {
-  0% {
-    transform: translate(-50%, -52%) scale(1);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translate(-50%, -45%) scale(1.1);
-    opacity: 0.9;
   }
 }
 
@@ -399,8 +397,8 @@ function crearChispa() {
   chispa.className = "chispa";
 
   // Dirección aleatoria
-  const x = (Math.random() - 0.5) * 200 + "px";
-  const y = (Math.random() - 1) * 200 + "px";
+  const x = (Math.random() - 0.5) * 100 + "px";
+  const y = (Math.random() - 1) * 120 + "px";
 
   chispa.style.setProperty("--x", x);
   chispa.style.setProperty("--y", y);
