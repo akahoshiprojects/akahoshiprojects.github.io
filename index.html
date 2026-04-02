@@ -22,43 +22,98 @@ body {
 }
 
 .logo {
-  max-width: 800px;
   width: 90%;
-  margin-bottom: 10px;
+  max-width: 800px;
   position: relative;
   z-index: 2;
 }
 
-/* FUEGO DETRÁS (ahora en el contenedor) */
+/* FUEGO ROJO */
 .logo-container::before {
   content: "";
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   width: 140%;
-  height: 140%;
+  height: 120%;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(255, 0, 0, 0.4),
-    rgba(150, 0, 50, 0.3),
-    rgba(120, 0, 150, 0.2),
+    rgba(255, 0, 0, 0.6),
+    rgba(200, 0, 0, 0.4),
     transparent 70%);
-  filter: blur(20px);
+  filter: blur(25px);
+  animation: fuegoRojo 0.8s infinite alternate;
   z-index: 1;
-  animation: fuego 3s infinite alternate;
 }
 
-/* ANIMACIÓN */
-@keyframes fuego {
+/* FUEGO VIOLETA */
+.logo-container::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 130%;
+  height: 130%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(150, 0, 255, 0.4),
+    rgba(100, 0, 150, 0.3),
+    transparent 70%);
+  filter: blur(30px);
+  animation: fuegoVioleta 1.2s infinite alternate;
+  z-index: 1;
+}
+
+/* ANIMACIONES MÁS CAÓTICAS */
+@keyframes fuegoRojo {
   0% {
-    transform: translate(-50%, -52%) scale(1);
-    filter: blur(15px);
-    opacity: 0.7;
+    transform: translate(-50%, -48%) scale(1);
+    opacity: 0.8;
   }
   100% {
-    transform: translate(-50%, -48%) scale(1.1);
-    filter: blur(25px);
+    transform: translate(-50%, -55%) scale(1.15);
     opacity: 1;
+  }
+}
+  .chispas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.chispa {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: red;
+  animation: chispaAnim 1s linear infinite;
+}
+
+@keyframes chispaAnim {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fuegoVioleta {
+  0% {
+    transform: translate(-50%, -52%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -45%) scale(1.1);
+    opacity: 0.9;
   }
 }
 
@@ -211,6 +266,7 @@ body {
 <div class="header">
   <div class="logo-container">
   <img src="logo.png" class="logo">
+  <div class="chispas" id="chispas"></div>
   </div>
   <p>Donde la oscuridad susurra historias olvidadas</p>
 </div>
@@ -335,6 +391,36 @@ for (let i = 0; i < 50; i++) {
   p.style.animationDuration = (5 + Math.random() * 10) + "s";
   contenedor.appendChild(p);
 }
+  
+const contenedorChispas = document.getElementById("chispas");
+
+function crearChispa() {
+  const chispa = document.createElement("div");
+  chispa.className = "chispa";
+
+  // Dirección aleatoria
+  const x = (Math.random() - 0.5) * 200 + "px";
+  const y = (Math.random() - 1) * 200 + "px";
+
+  chispa.style.setProperty("--x", x);
+  chispa.style.setProperty("--y", y);
+
+  // Color aleatorio rojo/violeta
+  chispa.style.background =
+    Math.random() > 0.5 ? "red" : "violet";
+
+  chispa.style.left = "50%";
+  chispa.style.top = "60%";
+
+  contenedorChispas.appendChild(chispa);
+
+  setTimeout(() => {
+    chispa.remove();
+  }, 1000);
+}
+
+// Generar chispas constantemente
+setInterval(crearChispa, 120);
 </script>
 
 </body>
